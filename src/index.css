@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "DM Serif Display", serif;
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --color-border: #e2e8f0;
+  --color-muted: #64748b;
+}
+
+@layer base {
+  body {
+    @apply bg-[#F9FAFB] text-black antialiased font-sans;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  .card-base {
+    @apply bg-white border border-slate-200 rounded-xl shadow-[0_2px_4px_rgba(0,0,0,0.02)];
+  }
+  
+  .sidebar-link {
+    @apply flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors;
+  }
+  
+  .sidebar-link-active {
+    @apply bg-slate-100 text-black;
+  }
+  
+  .sidebar-link-inactive {
+    @apply text-slate-600 hover:bg-slate-50 hover:text-black;
+  }
+
+  .badge-trend {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #cbd5e1;
+}

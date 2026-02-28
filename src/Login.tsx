@@ -25,45 +25,27 @@ export default function Login({ role }: LoginProps) {
     }
   }, [role]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError('');
+const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+  setIsLoading(true);
+  setError("");
 
-    try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
+  // 🔥 TEMPORARY LOGIN BYPASS
+  if (rememberRole) {
+    localStorage.setItem('academia_remembered_role', role);
+  } else {
+    localStorage.removeItem('academia_remembered_role');
+  }
 
-      if (response.ok) {
-        const data = await response.json();
-        
-        // Role verification
-        if (data.user.role !== role) {
-          setError(`This account does not belong to the ${role} role.`);
-          setIsLoading(false);
-          return;
-        }
+  login({
+    id: "1",
+    name: "Demo User",
+    email: email,
+    role: role,
+  });
 
-        if (rememberRole) {
-          localStorage.setItem('academia_remembered_role', role);
-        } else {
-          localStorage.removeItem('academia_remembered_role');
-        }
-
-        login(data.user);
-        navigate(`/${data.user.role}`);
-      } else {
-        setError('Invalid email or password');
-      }
-    } catch (err) {
-      setError('Something went wrong. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  navigate(`/${role}`);
+};
 
   const roleLabels = {
     admin: 'Academic Admin',
